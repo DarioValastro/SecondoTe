@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Secondo Te</title>
+    </head>
+<body style="text-align: center;font-size: x-large">
+Secondo te, {{ secondoTe['secondote'] }} ?
+  <br>  <br>  <br>
+<form action="{{ url_for('result') }}" method="post">
+    {{ form.csrf_token }}
+    {{ form.number.label }}
+    <br>
+    {{ form.number(size=1) }}
+    <input type="submit">
+</form>
+
+<br><br><br>
+<div>
+    Numero risposte: {{  secondoTe['risposte']  }}
+    <br><br>
+    Media: {{  secondoTe['media']  }}
+    <br><br>
+    Moda: {{  secondoTe['moda']  }}
+    <br><br>
+    Mediana: {{  secondoTe['mediana']  }}
+</div>
+
+</body>
+</html>
