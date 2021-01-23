@@ -1,0 +1,13 @@
+<html>
+    {% include 'modules/head.html' %}
+<body>
+
+{% include 'modules/menu.html' %}
+
+<ul>
+{% for secondoTe in listSecondoTe %}
+    <li><a href="{{ url_for('secondoTe',idSecondoTe=secondoTe['_id']) }}"> Secondo te, {{ secondoTe['secondote'] }} ?</a>  </li>
+{% endfor %}
+</ul>
+</body>
+</html>

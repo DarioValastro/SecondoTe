@@ -18,38 +18,56 @@ col = db.SecondoTe  # Here SecondoTe is my collection
 cur = col.find()
 
 mongo = PyMongo(app)
- #variabili di sistema
+# variabili di sistema
 app.domanda = ''
-app.element = {}
-
+app.elements = []
+for doc in cur:
+    print(doc)
+    app.elements.append(doc)
 
 
 class ToEstimateForm(FlaskForm):
-    #number = FloatField('Secondo te', validators=[DataRequired(), NumberRange(min=0, max=100, message=(
-    #    'Number must be between 0 and 100'))])
+    '''number = FloatField('Secondo te', validators=[DataRequired(), NumberRange(min=0, max=100, message=(
+    #    'Number must be between 0 and 100'))])'''
     number = FloatField('Secondo te', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
 @app.route('/')
-@app.route('/home')
 def hello_world():
-    for doc in cur:
-        print(doc)
-        form = ToEstimateForm(request.form)
-        app.domanda = doc['secondote']
-        app.element = doc
-        return render_template('index.html', secondoTe=doc, form=form)
+    form = ToEstimateForm(request.form)
+    return render_template('index.html', secondoTe=app.elements[0], form=form)
 
+
+@app.route('/')
+@app.route('/secondoTe/<idSecondoTe>')
+def secondoTe(idSecondoTe=None):
+    form = ToEstimateForm(request.form)
+    return render_template('index.html', secondoTe=app.elements[int(idSecondoTe)-1], form=form)
+
+
+@app.route('/allSecondoTe')
+def allSecondoTe():
+    return render_template('allSecondoTe.html', listSecondoTe=app.elements)
+
+
+@app.route('/newSecondote')
+def newSecondoTe():
+    return render_template('newSecondote.html')
+
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 
 @app.route('/result', methods=['POST', 'GET'])
 def result():
-    app.element['risposte'] = app.element['risposte'] + 1
-    app.element['media'] = app.element['sommarisposte'] + 1
-    app.element['mediana'] = app.element['sommarisposte'] + 1
-    app.element['moda'] = app.element['sommarisposte'] + 1
-    return render_template('result.html', secondoTe=app.element, domanda=app.domanda)
+    app.elements[0]['risposte'] = app.elements[0]['risposte'] + 1
+    app.elements[0]['media'] = app.elements[0]['sommarisposte'] + 1
+    app.elements[0]['mediana'] = app.elements[0]['sommarisposte'] + 1
+    app.elements[0]['moda'] = app.elements[0]['sommarisposte'] + 1
+    return render_template('result.html', secondoTe=app.elements[0])
 
 
 if __name__ == '__main__':

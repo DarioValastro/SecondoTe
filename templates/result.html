@@ -1,9 +1,10 @@
 <html>
-    <head>
-        <title>Secondo Te</title>
-    </head>
-<body style="text-align: center;font-size: x-large">
-Secondo te, {{ domanda }} ?
+    {% include 'modules/head.html' %}
+<body>
+
+{% include 'modules/menu.html' %}
+
+Secondo te, {{ secondoTe['secondote'] }} ?
   <br>  <br>  <br>
 
 <br><br><br>

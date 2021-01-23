@@ -1,8 +1,9 @@
 <html>
-    <head>
-        <title>Secondo Te</title>
-    </head>
-<body style="text-align: center;font-size: x-large">
+   {% include 'modules/head.html' %}
+<body>
+
+{% include 'modules/menu.html' %}
+
 Secondo te, {{ secondoTe['secondote'] }} ?
   <br>  <br>  <br>
 <form action="{{ url_for('result') }}" method="post">
