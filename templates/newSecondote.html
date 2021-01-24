@@ -1,8 +1,17 @@
 <html>
     {% include 'modules/head.html' %}
 <body>
-
+{% import "bootstrap/wtf.html" as wtf %}
 {% include 'modules/menu.html' %}
+
+Inserisci un nuovo SecondoTe:<br>
+
+{% block content %}
+   {{ wtf.quick_form(form) }}
+
+{% endblock content %}
+
+
 
 </body>
 </html>
